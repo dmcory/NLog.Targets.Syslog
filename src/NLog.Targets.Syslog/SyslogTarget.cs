@@ -39,7 +39,7 @@ namespace NLog.Targets
 {
     /// <summary>This class enables logging to a unix-style syslog server using NLog</summary>
     [Target("Syslog")]
-    public class Syslog : TargetWithLayout
+    public class SyslogTarget : TargetWithLayout
     {
         private const string NilValue = "-";
         private static readonly CultureInfo _usCulture = new CultureInfo("en-US");
@@ -93,7 +93,7 @@ namespace NLog.Targets
         #endregion
 
         /// <summary>Initializes a new instance of the Syslog class</summary>
-        public Syslog()
+        public SyslogTarget()
         {
             SyslogServer = "127.0.0.1";
             Port = 514;
@@ -217,7 +217,7 @@ namespace NLog.Targets
         {
             // Calculate PRI field
             var priority = CalculatePriorityValue(facility, severity).ToString(CultureInfo.InvariantCulture);
-            var time = logEvent.TimeStamp.ToLocalTime().ToString(TimestampFormat, _usCulture);
+            var time = logEvent.TimeStamp.ToString(TimestampFormat, _usCulture);
             // Get sender machine name
             var machine = MachineName.Render(logEvent);
             // Get sender
